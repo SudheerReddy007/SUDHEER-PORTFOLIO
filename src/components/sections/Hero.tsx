@@ -41,7 +41,7 @@ export function Hero() {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="text-lg md:text-xl text-muted-foreground/90 max-w-2xl mb-10 text-balance leading-relaxed"
         >
-          An enthusiastic and dedicated third-year Electronics and Communication Engineering student with a solid academic background in circuit design, communication systems, and digital electronics.
+          An enthusiastic and dedicated final-year Electronics and Communication Engineering student with a solid academic background in circuit design, communication systems, and digital electronics.
         </motion.p>
 
         <motion.div
