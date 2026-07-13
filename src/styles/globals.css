@@ -21,13 +21,13 @@
 
 @layer base {
   :root {
-    --background: #F8FAFC;
-    --foreground: #070B14;
+    --background: #070B14;
+    --foreground: #F8FAFC;
     --primary: #2563EB;
     --primary-foreground: #F8FAFC;
-    --muted: #E2E8F0;
-    --muted-foreground: #475569;
-    --border: rgba(0, 0, 0, 0.1);
+    --muted: #0F172A;
+    --muted-foreground: #CBD5E1;
+    --border: rgba(255, 255, 255, 0.08);
     --accent: #60A5FA;
     --secondary: #3B82F6;
   }
@@ -50,11 +50,11 @@
 
 @layer utilities {
   .glass {
-    @apply bg-white/40 backdrop-blur-[24px] border border-black/5 shadow-[0_8px_32px_rgba(0,0,0,0.05)];
+    @apply bg-[#0F172A]/40 backdrop-blur-[24px] border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.2)];
     transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease, border-color 0.3s ease;
   }
   .glass:hover {
-    @apply bg-white/60 border-black/10 shadow-[0_8px_32px_rgba(37,99,235,0.15)];
+    @apply bg-[#111827]/60 border-white/20 shadow-[0_8px_32px_rgba(37,99,235,0.15)];
   }
   .btn-primary {
     @apply bg-gradient-to-r from-primary to-secondary text-primary-foreground border-transparent shadow-[0_0_15px_rgba(37,99,235,0.3)] hover:shadow-[0_0_25px_rgba(59,130,246,0.5)] transition-all duration-300;
