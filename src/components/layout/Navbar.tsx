@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { navLinks, AUTHOR_NAME } from "@/constants";
 
 export function Navbar() {
@@ -45,6 +46,7 @@ export function Navbar() {
             </a>
           ))}
           <div className="flex items-center gap-4">
+            <ThemeToggle />
             <a
               href="#contact"
               className="px-6 py-2.5 rounded-full btn-primary text-sm font-semibold"
