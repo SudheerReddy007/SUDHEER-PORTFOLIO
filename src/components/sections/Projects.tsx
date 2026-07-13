@@ -53,7 +53,7 @@ export function Projects() {
         <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 150, ease: "linear" }} className="absolute -top-1/2 -right-1/2 w-[1000px] h-[1000px] bg-gradient-radial from-primary/5 to-transparent opacity-50 blur-[100px]" />
       </div>
 
-      <div className="container mx-auto px-6 md:px-12 relative z-10">
+      <div className="max-w-[1350px] w-[90%] mx-auto px-6 md:px-12 relative z-10">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
           <div>
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">Featured Projects</h2>
@@ -97,7 +97,13 @@ export function Projects() {
                 
                 {/* Illustration Container */}
                 <div className="aspect-[16/10] w-full relative border-b border-black/5 dark:border-white/5 overflow-hidden">
-                  <ProjectIllustration slug={project.slug} />
+                  <motion.div 
+                    className="w-full h-full"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.4 }}
+                  >
+                    <ProjectIllustration slug={project.slug} />
+                  </motion.div>
                   {/* Overlay shadow for depth */}
                   <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
                 </div>

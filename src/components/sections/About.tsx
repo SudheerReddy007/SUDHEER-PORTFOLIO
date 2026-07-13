@@ -5,12 +5,12 @@ import { Terminal, Coffee, Cpu, Sparkles } from "lucide-react";
 
 export function About() {
   const highlights = [
-    { label: "📍 Location", value: "Andhra Pradesh, India" },
-    { label: "🎓 Education", value: "B.Tech in ECE, VIT-AP" },
-    { label: "💻 Specialization", value: "VLSI & Digital Design" }
+    { label: "📍 Location", value: "Andhra Pradesh, India", sub: "Vellore Institute of Technology" },
+    { label: "🎓 Education", value: "B.Tech in ECE", sub: "CGPA: 9.32 | 2023 - 2027" },
+    { label: "💻 Specialization", value: "VLSI & Digital Design", sub: "Physical Design & RTL" }
   ];
 
-  const interests = [
+  const coreFocus = [
     "📡 Digital Design",
     "🔬 VLSI & Physical Design",
     "📶 Embedded Systems",
@@ -90,34 +90,37 @@ export function About() {
         ))}
       </div>
 
-      <div className="container mx-auto px-6 md:px-12 relative z-10 max-w-4xl">
+      <div className="max-w-[1350px] w-[90%] mx-auto px-6 md:px-12 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 35 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8 }}
           className="flex flex-col gap-12 text-center"
         >
-          {/* Header */}
-          <div>
-            <span className="text-sm font-semibold uppercase tracking-widest text-[#B4B4C4]/60 mb-3 flex items-center justify-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-[#8B5CF6] animate-pulse" />
-              About Me
-            </span>
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tighter mb-4 text-center">
-              About Me
-            </h2>
-          </div>
-
           {/* Single Premium Glass Container */}
-          <div className="glass p-10 md:p-12 rounded-[32px] border border-white/10 text-left relative overflow-hidden shadow-2xl space-y-8 w-full max-w-[95%] md:max-w-[85%] mx-auto">
+          <div className="glass p-10 md:p-16 rounded-[32px] border border-white/10 text-left relative overflow-hidden shadow-2xl space-y-10 w-full max-w-[90%] mx-auto">
             <div className="absolute inset-0 bg-gradient-to-br from-white/[0.01] to-transparent pointer-events-none" />
             
             {/* Shimmer light reflection overlay */}
             <div className="absolute top-0 -inset-x-full h-full w-1/2 block transform -skew-x-12 bg-gradient-to-r from-transparent via-white/5 to-transparent opacity-10 hover:animate-shine pointer-events-none" />
 
+            {/* About Heading */}
+            <div className="flex flex-col gap-2 relative z-10">
+              <span className="text-xs font-semibold uppercase tracking-widest text-[#B4B4C4]/60 flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-[#8B5CF6] animate-pulse" />
+                About Me
+              </span>
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tighter text-white">
+                About Me
+              </h2>
+            </div>
+
+            {/* Subtle Divider */}
+            <div className="h-[1px] bg-white/5 w-full" />
+
             {/* Professional Introduction Paragraphs */}
-            <div className="space-y-6 text-base text-[#B4B4C4] leading-relaxed relative z-10">
+            <div className="space-y-6 text-base md:text-lg text-[#B4B4C4] leading-relaxed relative z-10">
               <p>
                 I am a dedicated final-year Electronics and Communication Engineering student at Vellore Institute of Technology, specializing in <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#7C3AED] to-[#8B5CF6] font-bold">VLSI Physical Design</span>, <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#8B5CF6] to-[#A855F7] font-bold">Embedded Systems</span>, and <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#A855F7] to-[#7C3AED] font-bold">Digital Design</span>. I enjoy combining physical hardware foundations with clean, robust <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#7C3AED] to-[#8B5CF6] font-bold">Software Development</span>.
               </p>
@@ -132,43 +135,39 @@ export function About() {
             {/* Subtle Divider */}
             <div className="h-[1px] bg-white/5 w-full" />
 
-            {/* Horizontal Stats/Metrics */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-2">
+            {/* Horizontal Grid for Location | Education | Specialization | Interests */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 pt-2 relative z-10">
               {highlights.map((item, idx) => (
-                <div key={idx} className="flex flex-col gap-1 text-left">
+                <div key={idx} className="flex flex-col gap-2">
                   <span className="text-xs text-muted-foreground uppercase font-bold tracking-widest block">
                     {item.label}
                   </span>
                   <span className="text-sm font-semibold text-white">
                     {item.value}
                   </span>
+                  <span className="text-xs text-[#B4B4C4]/70">
+                    {item.sub}
+                  </span>
                 </div>
               ))}
-            </div>
 
-            {/* Subtle Divider */}
-            <div className="h-[1px] bg-white/5 w-full" />
-
-            {/* Interests Wrapping */}
-            <div className="space-y-4">
-              <h4 className="text-xs uppercase font-bold tracking-widest text-muted-foreground">
-                Core Focus & Interests
-              </h4>
-              <div className="flex flex-wrap gap-2.5">
-                {interests.map((item, idx) => (
-                  <div
-                    key={idx}
-                    className="px-4 py-2 rounded-full border border-white/5 bg-white/[0.02] text-xs font-semibold text-white/90 hover:border-[#8B5CF6]/35 hover:bg-[#8B5CF6]/5 transition-all duration-200 cursor-default"
-                  >
-                    {item}
-                  </div>
-                ))}
+              <div className="flex flex-col gap-2">
+                <span className="text-xs text-muted-foreground uppercase font-bold tracking-widest block">
+                  🚀 Core Focus
+                </span>
+                <div className="flex flex-col gap-1.5">
+                  {coreFocus.slice(0, 3).map((focus, fIdx) => (
+                    <span key={fIdx} className="text-xs text-[#B4B4C4]/90 block">
+                      {focus}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
 
           {/* Learning Journey Timeline */}
-          <div className="flex flex-col gap-8 pt-8 w-full max-w-[95%] md:max-w-[85%] mx-auto">
+          <div className="flex flex-col gap-8 pt-8 w-full max-w-[90%] mx-auto">
             <h3 className="text-2xl font-bold tracking-tighter text-left border-b border-white/5 pb-3">
               My Learning Journey
             </h3>
@@ -182,8 +181,8 @@ export function About() {
                 return (
                   <motion.div
                     key={index}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: index * 0.1 }}
                     className="relative"

@@ -70,7 +70,7 @@ export function Hero() {
         ))}
       </div>
 
-      <div className="container mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-[54fr_46fr] gap-8 items-center relative z-10">
+      <div className="max-w-[1350px] w-[90%] mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-[54fr_46fr] gap-8 items-center relative z-10">
         {/* Left Column - Content */}
         <motion.div
           initial={{ opacity: 0, x: -30 }}
