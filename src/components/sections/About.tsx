@@ -1,50 +1,21 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { MapPin, GraduationCap, Cpu, Rocket, Terminal, Coffee, Sparkles, Layers } from "lucide-react";
+import { Terminal, Coffee, Cpu, Sparkles } from "lucide-react";
 
 export function About() {
-  const infoCards = [
-    {
-      icon: MapPin,
-      title: "Location",
-      value: "Andhra Pradesh, India",
-      desc: "Vellore Institute of Technology",
-      color: "from-blue-500/10 to-indigo-500/10",
-      iconColor: "text-blue-400"
-    },
-    {
-      icon: GraduationCap,
-      title: "Education",
-      value: "B.Tech in ECE",
-      desc: "CGPA: 9.32 | 2023 - 2027",
-      color: "from-purple-500/10 to-pink-500/10",
-      iconColor: "text-purple-400"
-    },
-    {
-      icon: Cpu,
-      title: "Specialization",
-      value: "VLSI & Digital Design",
-      desc: "Physical Design & RTL",
-      color: "from-emerald-500/10 to-teal-500/10",
-      iconColor: "text-emerald-400"
-    },
-    {
-      icon: Rocket,
-      title: "ECE Interests",
-      value: "Hardware & Software",
-      desc: "RTL, Embedded, C++ & Java",
-      color: "from-orange-500/10 to-amber-500/10",
-      iconColor: "text-orange-400"
-    }
+  const highlights = [
+    { label: "📍 Location", value: "Andhra Pradesh, India" },
+    { label: "🎓 Education", value: "B.Tech in ECE, VIT-AP" },
+    { label: "💻 Specialization", value: "VLSI & Digital Design" }
   ];
 
-  const interestItems = [
-    { label: "📡 Digital Design", desc: "Modeling logical circuits, simulation testing, and structural synthesis." },
-    { label: "🔬 VLSI & Physical Design", desc: "SPI cell routing layouts, DRC/LVS analysis, and GDSII generation." },
-    { label: "📶 Embedded Systems", desc: "Prototyping microcontroller sensors, firmware logic, and IoT circuits." },
-    { label: "⚡ Semiconductor Technology", desc: "Understanding CMOS fundamentals, transistor properties, and physics." },
-    { label: "📖 Learning New Hardware Protocols", desc: "Exploring SPI, I2C, UART, and custom system bus communications." }
+  const interests = [
+    "📡 Digital Design",
+    "🔬 VLSI & Physical Design",
+    "📶 Embedded Systems",
+    "⚡ Semiconductor Tech",
+    "📖 Hardware Protocols"
   ];
 
   const timelineEvents = [
@@ -121,7 +92,7 @@ export function About() {
 
       <div className="container mx-auto px-6 md:px-12 relative z-10 max-w-4xl">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 35 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
@@ -129,7 +100,7 @@ export function About() {
         >
           {/* Header */}
           <div>
-            <span className="text-sm font-semibold uppercase tracking-widest text-[#B4B4C4] mb-3 flex items-center justify-center gap-2">
+            <span className="text-sm font-semibold uppercase tracking-widest text-[#B4B4C4]/60 mb-3 flex items-center justify-center gap-2">
               <span className="w-2 h-2 rounded-full bg-[#8B5CF6] animate-pulse" />
               About Me
             </span>
@@ -138,62 +109,66 @@ export function About() {
             </h2>
           </div>
 
-          {/* Professional Introduction Card */}
-          <div className="glass p-8 rounded-3xl border border-white/10 text-left relative overflow-hidden shadow-2xl">
+          {/* Single Premium Glass Container */}
+          <div className="glass p-10 md:p-12 rounded-[32px] border border-white/10 text-left relative overflow-hidden shadow-2xl space-y-8 w-full max-w-[95%] md:max-w-[85%] mx-auto">
             <div className="absolute inset-0 bg-gradient-to-br from-white/[0.01] to-transparent pointer-events-none" />
-            <p className="text-lg text-[#B4B4C4] leading-relaxed relative z-10">
-              I am a dedicated final-year Electronics and Communication Engineering student at Vellore Institute of Technology, specializing in <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#7C3AED] to-[#8B5CF6] font-bold">VLSI Physical Design</span>, <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#8B5CF6] to-[#A855F7] font-bold">Embedded Systems</span>, and <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#A855F7] to-[#7C3AED] font-bold">Digital Design</span>. I enjoy combining physical hardware foundations with clean, robust <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#7C3AED] to-[#8B5CF6] font-bold">Software Development</span>. As an active problem solver, I work to bridge RTL code simulations with concrete hardware architectures and end-to-end web tooling.
-            </p>
-          </div>
-
-          {/* Highlights Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {infoCards.map((card, index) => {
-              const Icon = card.icon;
-              return (
-                <motion.div
-                  key={index}
-                  whileHover={{ y: -4 }}
-                  className="group relative p-6 rounded-2xl border border-white/5 bg-white/[0.02] backdrop-blur-md transition-all duration-300 hover:border-white/10 hover:shadow-lg flex items-start gap-4 text-left"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/[0.01] to-transparent pointer-events-none rounded-2xl" />
-                  
-                  <div className={`p-3 rounded-xl bg-gradient-to-br ${card.color} ${card.iconColor} transition-transform duration-300 group-hover:scale-110`}>
-                    <Icon size={20} />
-                  </div>
-                  <div>
-                    <span className="text-xs text-muted-foreground uppercase font-bold tracking-widest block mb-0.5">{card.title}</span>
-                    <span className="font-semibold text-white block text-sm">{card.value}</span>
-                    <span className="text-xs text-[#B4B4C4]/70 block mt-0.5">{card.desc}</span>
-                  </div>
-                </motion.div>
-              );
-            })}
-          </div>
-
-          {/* Interests Card */}
-          <div className="flex flex-col gap-6 text-left">
-            <h3 className="text-2xl font-bold tracking-tighter">
-              Core ECE Focus & Interests
-            </h3>
             
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {interestItems.map((item, index) => (
-                <motion.div
-                  key={index}
-                  whileHover={{ x: 4 }}
-                  className="group relative p-5 rounded-2xl border border-white/5 bg-white/[0.02] backdrop-blur-md transition-all duration-300 hover:border-[#8B5CF6]/30 hover:shadow-md text-left"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/[0.01] to-transparent pointer-events-none rounded-2xl" />
-                  <h4 className="font-bold text-white text-sm mb-1.5">{item.label}</h4>
-                  <p className="text-xs text-muted-foreground leading-relaxed">{item.desc}</p>
-                </motion.div>
+            {/* Shimmer light reflection overlay */}
+            <div className="absolute top-0 -inset-x-full h-full w-1/2 block transform -skew-x-12 bg-gradient-to-r from-transparent via-white/5 to-transparent opacity-10 hover:animate-shine pointer-events-none" />
+
+            {/* Professional Introduction Paragraphs */}
+            <div className="space-y-6 text-base text-[#B4B4C4] leading-relaxed relative z-10">
+              <p>
+                I am a dedicated final-year Electronics and Communication Engineering student at Vellore Institute of Technology, specializing in <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#7C3AED] to-[#8B5CF6] font-bold">VLSI Physical Design</span>, <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#8B5CF6] to-[#A855F7] font-bold">Embedded Systems</span>, and <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#A855F7] to-[#7C3AED] font-bold">Digital Design</span>. I enjoy combining physical hardware foundations with clean, robust <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#7C3AED] to-[#8B5CF6] font-bold">Software Development</span>.
+              </p>
+              <p>
+                My academic journey is centered around bridging RTL code implementations with concrete hardware architectures. Through structured projects and my internship experiences, I have implemented physical silicon layouts, worked with open-source VLSI toolchains like Qflow, and built hardware sensory networks.
+              </p>
+              <p>
+                As an active problem solver, I work to design modular solutions that optimize logic layouts and code architectures, preparing to step into roles at the intersection of chip verification and high-performance computing.
+              </p>
+            </div>
+
+            {/* Subtle Divider */}
+            <div className="h-[1px] bg-white/5 w-full" />
+
+            {/* Horizontal Stats/Metrics */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-2">
+              {highlights.map((item, idx) => (
+                <div key={idx} className="flex flex-col gap-1 text-left">
+                  <span className="text-xs text-muted-foreground uppercase font-bold tracking-widest block">
+                    {item.label}
+                  </span>
+                  <span className="text-sm font-semibold text-white">
+                    {item.value}
+                  </span>
+                </div>
               ))}
+            </div>
+
+            {/* Subtle Divider */}
+            <div className="h-[1px] bg-white/5 w-full" />
+
+            {/* Interests Wrapping */}
+            <div className="space-y-4">
+              <h4 className="text-xs uppercase font-bold tracking-widest text-muted-foreground">
+                Core Focus & Interests
+              </h4>
+              <div className="flex flex-wrap gap-2.5">
+                {interests.map((item, idx) => (
+                  <div
+                    key={idx}
+                    className="px-4 py-2 rounded-full border border-white/5 bg-white/[0.02] text-xs font-semibold text-white/90 hover:border-[#8B5CF6]/35 hover:bg-[#8B5CF6]/5 transition-all duration-200 cursor-default"
+                  >
+                    {item}
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
 
           {/* Learning Journey Timeline */}
-          <div className="flex flex-col gap-8 pt-8 w-full">
+          <div className="flex flex-col gap-8 pt-8 w-full max-w-[95%] md:max-w-[85%] mx-auto">
             <h3 className="text-2xl font-bold tracking-tighter text-left border-b border-white/5 pb-3">
               My Learning Journey
             </h3>
