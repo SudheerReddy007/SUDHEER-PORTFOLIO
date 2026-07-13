@@ -1,20 +1,12 @@
 import type { Metadata } from "next";
-import { Manrope, Inter } from "next/font/google";
 import "@/styles/globals.css";
 import { ThemeProvider } from "@/components/ui/ThemeProvider";
 import { CustomCursor } from "@/components/ui/CustomCursor";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 
-const fontHeading = Manrope({
-  variable: "--font-heading",
-  subsets: ["latin"],
-});
-
-const fontSans = Inter({
-  variable: "--font-sans",
-  subsets: ["latin"],
-});
+const fontHeading = { variable: "font-heading" };
+const fontSans = { variable: "font-sans" };
 
 export const metadata: Metadata = {
   title: "Sudheer Reddy | Electronics & Communication Engineer",
