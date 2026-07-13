@@ -202,13 +202,13 @@ export function Hero() {
         </motion.div>
 
         {/* Right Column - Portrait & Ambient Glow */}
-        <div className="lg:col-span-5 flex items-end justify-center relative min-h-[480px] md:min-h-[580px] lg:min-h-[680px] w-full self-end">
+        <div className="lg:col-span-5 flex items-center justify-center relative min-h-[480px] md:min-h-[580px] lg:min-h-[680px] w-full self-center">
           {/* Layered glows and concentric rings behind the portrait */}
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none scale-125 translate-y-10">
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none scale-125 -translate-y-8">
             {/* Glowing cores */}
-            <div className="absolute w-[120%] h-[120%] bg-[#7C3AED]/25 rounded-full blur-[110px] animate-pulse" style={{ animationDuration: "8s" }} />
-            <div className="absolute w-[95%] h-[95%] bg-[#8B5CF6]/20 rounded-full blur-[90px] animate-pulse" style={{ animationDuration: "5s" }} />
-            <div className="absolute w-[70%] h-[70%] bg-[#A855F7]/15 rounded-full blur-[65px]" />
+            <div className="absolute w-[120%] h-[120%] bg-[#7C3AED]/35 rounded-full blur-[120px] animate-pulse" style={{ animationDuration: "8s" }} />
+            <div className="absolute w-[95%] h-[95%] bg-[#8B5CF6]/28 rounded-full blur-[100px] animate-pulse" style={{ animationDuration: "5s" }} />
+            <div className="absolute w-[70%] h-[70%] bg-[#A855F7]/22 rounded-full blur-[80px]" />
 
             {/* Glowing ring 1 */}
             <motion.div
@@ -244,23 +244,20 @@ export function Hero() {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="relative z-10 w-full max-w-[380px] md:max-w-[460px] lg:max-w-[500px] aspect-[4/5] flex items-center justify-center translate-y-6 md:translate-y-8 lg:translate-y-12"
+            className="relative z-10 w-full max-w-[380px] md:max-w-[460px] lg:max-w-[500px] aspect-[4/5] flex items-center justify-center -translate-y-8"
             style={{ x: mousePos.x * 0.4, y: mousePos.y * 0.4 }}
           >
             <motion.img
               src="/images/portrait.png"
               alt="Sudheer Reddy Portrait"
               className="w-full h-auto object-contain drop-shadow-[0_15px_50px_rgba(124,58,237,0.35)]"
+              style={{
+                maskImage: "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 50%, rgba(0,0,0,0.8) 65%, rgba(0,0,0,0.4) 80%, rgba(0,0,0,0) 100%)",
+                WebkitMaskImage: "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 50%, rgba(0,0,0,0.8) 65%, rgba(0,0,0,0.4) 80%, rgba(0,0,0,0) 100%)"
+              }}
               animate={{ y: [-3, 3, -3] }}
               transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
             />
-
-            {/* Premium waist-down bottom fade overlays */}
-            <div className="absolute -bottom-2 inset-x-0 h-40 pointer-events-none z-20 flex flex-col justify-end">
-              <div className="absolute inset-0 bg-gradient-to-t from-[#09090B] via-[#09090B]/90 to-transparent" />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#7C3AED]/15 via-transparent to-transparent blur-[8px]" />
-              <div className="h-4 bg-[#09090B] w-full" />
-            </div>
           </motion.div>
         </div>
       </div>
