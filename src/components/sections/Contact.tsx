@@ -67,28 +67,68 @@ export function Contact() {
     const publicKey = "6rCybvFtcbAahUoIo";
     const templateId = "template_2od1boa";
 
-    const templateParams = {
-      from_name: name,
-      from_email: email,
-      message: message,
-    };
+    const from_name = name;
+    const from_email = email;
 
-    console.log("Sending email via EmailJS browser SDK...", {
+    // Logging values being used
+    console.log("EmailJS Credentials Configuration:", {
       serviceId,
       templateId,
-      publicKey,
-      templateParams
+      publicKey
     });
 
+    console.log("EmailJS Template Parameters:", {
+      from_name,
+      from_email,
+      message
+    });
+
+    // Verify none of them are undefined or empty
+    if (!serviceId) {
+      console.error("EmailJS Config Error: serviceId is empty or undefined");
+      return;
+    }
+    if (!templateId) {
+      console.error("EmailJS Config Error: templateId is empty or undefined");
+      return;
+    }
+    if (!publicKey) {
+      console.error("EmailJS Config Error: publicKey is empty or undefined");
+      return;
+    }
+    if (!from_name || !from_name.trim()) {
+      console.error("EmailJS Config Error: from_name is empty or undefined");
+      return;
+    }
+    if (!from_email || !from_email.trim()) {
+      console.error("EmailJS Config Error: from_email is empty or undefined");
+      return;
+    }
+    if (!message || !message.trim()) {
+      console.error("EmailJS Config Error: message is empty or undefined");
+      return;
+    }
+
     try {
+      // Explicitly initialize EmailJS correctly before sending
+      console.log("Initializing EmailJS with Public Key:", publicKey);
+      emailjs.init(publicKey);
+
+      console.log("Invoking emailjs.send()...");
       const result = await emailjs.send(
         serviceId,
         templateId,
-        templateParams,
+        {
+          from_name,
+          from_email,
+          message
+        },
         publicKey
       );
 
-      console.log("EmailJS Send Successful. Response Status:", result.status, "Response Text:", result.text);
+      console.log("EmailJS Response Status:", result.status);
+      console.log("EmailJS Response Text:", result.text);
+      console.log("EmailJS Full Response Object:", result);
 
       if (result.status === 200) {
         setToast({
@@ -101,7 +141,7 @@ export function Contact() {
         setStatus("success");
         setTimeout(() => setToast(null), 5000);
       } else {
-        console.error("EmailJS SDK returned non-200 code:", result);
+        console.error("EmailJS API returned non-200 status:", result);
         setToast({
           message: "❌ Failed to send your message. Please try again.",
           type: "error"
@@ -110,13 +150,14 @@ export function Contact() {
         setTimeout(() => setToast(null), 5000);
       }
     } catch (error: any) {
-      console.error("EmailJS Send Failed. Error details logged below:");
-      console.error(error);
+      console.error("EmailJS Error Object:", error);
       if (error && typeof error === "object") {
-        console.error("HTTP Response details:", {
-          status: error.status,
-          text: error.text
-        });
+        console.error("EmailJS Error Status:", error.status);
+        console.error("EmailJS Error Text:", error.text);
+        console.error("EmailJS Error Name:", error.name);
+        console.error("EmailJS Error Message:", error.message);
+      } else {
+        console.error("EmailJS Error Message (Raw):", error);
       }
       setToast({
         message: "❌ Failed to send your message. Please try again.",
