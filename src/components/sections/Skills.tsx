@@ -68,7 +68,7 @@ export function Skills() {
       <div className="absolute top-1/3 right-1/10 w-[550px] h-[550px] bg-[#8B5CF6]/5 rounded-full blur-[145px] pointer-events-none" />
       <div className="absolute bottom-1/3 left-1/10 w-[500px] h-[500px] bg-[#7C3AED]/5 rounded-full blur-[130px] pointer-events-none" />
 
-      <div className="max-w-[1350px] w-[90%] mx-auto px-6 md:px-12 relative z-10">
+      <div className="max-w-[1550px] w-[93%] mx-auto px-6 md:px-12 relative z-10">
         
         {/* Header Section */}
         <motion.div

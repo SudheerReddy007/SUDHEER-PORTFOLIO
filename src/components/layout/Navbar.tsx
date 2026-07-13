@@ -46,7 +46,7 @@ export function Navbar() {
           : "bg-transparent border-transparent py-6"
       )}
     >
-      <div className="max-w-[1350px] w-[90%] mx-auto px-6 md:px-12 flex items-center justify-between">
+      <div className="max-w-[1550px] w-[93%] mx-auto px-6 md:px-12 flex items-center justify-between">
         <a href="#" className="text-xl font-bold tracking-tighter text-glow text-white">
           {AUTHOR_NAME}
         </a>

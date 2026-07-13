@@ -5,7 +5,7 @@ export function Footer() {
 
   return (
     <footer className="border-t border-white/5 bg-[#09090B] text-white py-12 mt-20">
-      <div className="max-w-[1350px] w-[90%] mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div className="max-w-[1550px] w-[93%] mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center justify-between gap-6">
         <div className="flex flex-col items-center md:items-start gap-2">
           <Link href="/" className="text-xl font-bold tracking-tighter text-glow">
             Sudheer Reddy
