@@ -1,9 +1,10 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { Send, Mail, ArrowUpRight } from "lucide-react";
+import { Send } from "lucide-react";
 import { useState } from "react";
 import { CONTACT_EMAIL } from "@/constants";
+import emailjs from "@emailjs/browser";
 
 // Custom inline SVG icons for social platforms because of local lucide-react version compatibility
 const GithubIcon = (props: React.SVGProps<SVGSVGElement>) => (
@@ -47,9 +48,18 @@ export function Contact() {
     e.preventDefault();
 
     // Validation
-    if (!name.trim()) return;
-    if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return;
-    if (!message.trim()) return;
+    if (!name.trim()) {
+      console.warn("EmailJS Submission Blocked: Name cannot be empty.");
+      return;
+    }
+    if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      console.warn("EmailJS Submission Blocked: Invalid Email Address.");
+      return;
+    }
+    if (!message.trim()) {
+      console.warn("EmailJS Submission Blocked: Message body cannot be empty.");
+      return;
+    }
 
     setStatus("submitting");
 
@@ -57,25 +67,30 @@ export function Contact() {
     const publicKey = "6rCybvFtcbAahUoIo";
     const templateId = "YOUR_TEMPLATE_ID";
 
-    try {
-      const response = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          service_id: serviceId,
-          template_id: templateId,
-          user_id: publicKey,
-          template_params: {
-            from_name: name,
-            from_email: email,
-            message: message,
-          },
-        }),
-      });
+    const templateParams = {
+      from_name: name,
+      from_email: email,
+      message: message,
+    };
 
-      if (response.ok) {
+    console.log("Sending email via EmailJS browser SDK...", {
+      serviceId,
+      templateId,
+      publicKey,
+      templateParams
+    });
+
+    try {
+      const result = await emailjs.send(
+        serviceId,
+        templateId,
+        templateParams,
+        publicKey
+      );
+
+      console.log("EmailJS Send Successful. Response Status:", result.status, "Response Text:", result.text);
+
+      if (result.status === 200) {
         setToast({
           message: "✅ Thank you! Your message has been sent successfully. I'll get back to you soon.",
           type: "success"
@@ -86,6 +101,7 @@ export function Contact() {
         setStatus("success");
         setTimeout(() => setToast(null), 5000);
       } else {
+        console.error("EmailJS SDK returned non-200 code:", result);
         setToast({
           message: "❌ Failed to send your message. Please try again.",
           type: "error"
@@ -93,7 +109,15 @@ export function Contact() {
         setStatus("error");
         setTimeout(() => setToast(null), 5000);
       }
-    } catch (error) {
+    } catch (error: any) {
+      console.error("EmailJS Send Failed. Error details logged below:");
+      console.error(error);
+      if (error && typeof error === "object") {
+        console.error("HTTP Response details:", {
+          status: error.status,
+          text: error.text
+        });
+      }
       setToast({
         message: "❌ Failed to send your message. Please try again.",
         type: "error"
@@ -101,7 +125,6 @@ export function Contact() {
       setStatus("error");
       setTimeout(() => setToast(null), 5000);
     } finally {
-      // Revert status to idle so the user can send again if needed, or if it failed
       setTimeout(() => setStatus("idle"), 1000);
     }
   };
@@ -159,68 +182,39 @@ export function Contact() {
               </p>
             </div>
 
-            {/* Email CTA Button */}
-            <div className="flex justify-start">
-              <a
-                href="https://mail.google.com/mail/?view=cm&fs=1&to=sudheer.sreeyapureddy@gmail.com&su=Connect%20via%20Portfolio&body=Hi%20Sudheer,%0A%0AI%20visited%20your%20portfolio%20and%20would%20like%20to%20connect.%0A%0ARegards,"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full bg-gradient-to-r from-[#7C3AED] to-[#8B5CF6] text-white text-sm font-semibold shadow-[0_0_20px_rgba(124,58,237,0.3)] hover:shadow-[0_0_30px_rgba(139,92,246,0.5)] hover:scale-105 transition-all duration-300"
-              >
-                <Mail size={16} />
-                Email Me Directly
-              </a>
-            </div>
-
-            {/* Social Cards Group */}
-            <div className="flex flex-col gap-4 mt-4">
-              <h3 className="text-xs font-bold uppercase tracking-widest text-[#B4B4C4] text-left flex items-center gap-2">
-                <span>📍</span> Connect With Me
+            {/* Social Links - Minimal Style */}
+            <div className="flex flex-col gap-3 mt-4">
+              <h3 className="text-xs font-bold uppercase tracking-widest text-[#B4B4C4]/60 text-left">
+                Secondary Actions
               </h3>
               
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {/* LinkedIn Card */}
+              <div className="flex flex-col sm:flex-row gap-3">
+                {/* LinkedIn Link */}
                 <a
                   href="https://www.linkedin.com/in/sudheerreddy007/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group relative block p-6 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-[#8B5CF6]/50 hover:shadow-[0_0_30px_rgba(139,92,246,0.15)]"
+                  className="inline-flex items-center justify-between sm:justify-start gap-2.5 px-4 py-2.5 rounded-xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.06] hover:border-white/10 hover:shadow-md transition-all duration-200 text-sm group cursor-pointer w-full sm:w-auto"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#8B5CF6]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl" />
-                  <div className="flex items-start justify-between relative z-10">
-                    <div className="flex items-center gap-3">
-                      <div className="p-3 rounded-xl bg-white/5 text-[#8B5CF6] group-hover:bg-[#8B5CF6]/20 group-hover:text-white transition-all duration-300">
-                        <LinkedinIcon className="w-6 h-6" />
-                      </div>
-                      <div className="text-left">
-                        <span className="text-xs text-[#B4B4C4] block uppercase font-bold tracking-widest mb-0.5">LinkedIn</span>
-                        <span className="font-semibold text-white text-sm group-hover:text-[#8B5CF6] transition-colors break-all">sudheerreddy007</span>
-                      </div>
-                    </div>
-                    <ArrowUpRight size={16} className="text-[#B4B4C4] group-hover:text-white transition-colors" />
+                  <div className="flex items-center gap-2">
+                    <LinkedinIcon className="w-4 h-4 text-muted-foreground group-hover:text-white transition-all duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                    <span className="font-medium text-white/90">LinkedIn</span>
                   </div>
+                  <span className="text-xs text-[#B4B4C4]/50 ml-auto sm:ml-2">/sudheerreddy007</span>
                 </a>
 
-                {/* GitHub Card */}
+                {/* GitHub Link */}
                 <a
                   href="https://github.com/SudheerReddy007"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group relative block p-6 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-[#8B5CF6]/50 hover:shadow-[0_0_30px_rgba(139,92,246,0.15)]"
+                  className="inline-flex items-center justify-between sm:justify-start gap-2.5 px-4 py-2.5 rounded-xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.06] hover:border-white/10 hover:shadow-md transition-all duration-200 text-sm group cursor-pointer w-full sm:w-auto"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#8B5CF6]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl" />
-                  <div className="flex items-start justify-between relative z-10">
-                    <div className="flex items-center gap-3">
-                      <div className="p-3 rounded-xl bg-white/5 text-[#8B5CF6] group-hover:bg-[#8B5CF6]/20 group-hover:text-white transition-all duration-300">
-                        <GithubIcon className="w-6 h-6" />
-                      </div>
-                      <div className="text-left">
-                        <span className="text-xs text-[#B4B4C4] block uppercase font-bold tracking-widest mb-0.5">GitHub</span>
-                        <span className="font-semibold text-white text-sm group-hover:text-[#8B5CF6] transition-colors break-all">SudheerReddy007</span>
-                      </div>
-                    </div>
-                    <ArrowUpRight size={16} className="text-[#B4B4C4] group-hover:text-white transition-colors" />
+                  <div className="flex items-center gap-2">
+                    <GithubIcon className="w-4 h-4 text-muted-foreground group-hover:text-white transition-all duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                    <span className="font-medium text-white/90">GitHub</span>
                   </div>
+                  <span className="text-xs text-[#B4B4C4]/50 ml-auto sm:ml-2">/SudheerReddy007</span>
                 </a>
               </div>
             </div>
