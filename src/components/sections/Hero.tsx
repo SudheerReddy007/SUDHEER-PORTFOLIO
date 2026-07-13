@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, Terminal, Cpu, Database as DbIcon, Globe } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 // Custom inline SVG icons for social platforms because of local lucide-react version compatibility
 const GithubIcon = (props: React.SVGProps<SVGSVGElement>) => (
@@ -25,19 +25,7 @@ const TwitterIcon = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
-// Tech cards configuration with floating coordinates, timings, rotations, and styles
-const techCards = [
-  { name: "React", top: "5%", right: "-5%", delay: 0, duration: 6, rot: 5, shadow: "shadow-[0_0_15px_rgba(6,182,212,0.15)]", border: "border-cyan-500/20", text: "text-cyan-400", icon: Globe, pFactor: 0.8 },
-  { name: "JavaScript", top: "25%", right: "-12%", delay: 1.5, duration: 8, rot: -8, shadow: "shadow-[0_0_15px_rgba(234,179,8,0.15)]", border: "border-yellow-500/20", text: "text-yellow-400", pFactor: 1.2 },
-  { name: "Python", top: "60%", right: "-6%", delay: 0.5, duration: 7, rot: 6, shadow: "shadow-[0_0_15px_rgba(59,130,246,0.15)]", border: "border-blue-500/20", text: "text-blue-400", pFactor: 0.9 },
-  { name: "Java", top: "-5%", left: "-5%", delay: 2, duration: 6.5, rot: -5, shadow: "shadow-[0_0_15px_rgba(249,115,22,0.15)]", border: "border-orange-500/20", text: "text-orange-400", icon: Cpu, pFactor: 1.1 },
-  { name: "Git", top: "20%", left: "-15%", delay: 1, duration: 9, rot: 10, shadow: "shadow-[0_0_15px_rgba(239,68,68,0.15)]", border: "border-red-500/20", text: "text-red-400", pFactor: 1.3 },
-  { name: "Database", top: "55%", left: "-12%", delay: 3, duration: 7.5, rot: -7, shadow: "shadow-[0_0_15px_rgba(168,85,247,0.15)]", border: "border-purple-500/20", text: "text-purple-400", icon: DbIcon, pFactor: 0.7 },
-  { name: "API", top: "-12%", left: "38%", delay: 2.5, duration: 8, rot: 4, shadow: "shadow-[0_0_15px_rgba(20,184,166,0.15)]", border: "border-teal-500/20", text: "text-teal-400", pFactor: 1.0 },
-  { name: "Node.js", top: "82%", left: "20%", delay: 1.2, duration: 7, rot: -3, shadow: "shadow-[0_0_15px_rgba(34,197,94,0.15)]", border: "border-green-500/20", text: "text-green-400", icon: Terminal, pFactor: 1.4 },
-  { name: "SQL", top: "72%", right: "15%", delay: 0.8, duration: 8.5, rot: 5, shadow: "shadow-[0_0_15px_rgba(236,72,153,0.15)]", border: "border-pink-500/20", text: "text-pink-400", pFactor: 1.1 },
-  { name: "HTML/CSS", top: "-12%", right: "25%", delay: 3.5, duration: 9.5, rot: -6, shadow: "shadow-[0_0_15px_rgba(59,130,246,0.15)]", border: "border-blue-500/20", text: "text-blue-300", pFactor: 0.8 }
-];
+
 
 export function Hero() {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
@@ -213,33 +201,41 @@ export function Hero() {
           </motion.div>
         </motion.div>
 
-        {/* Right Column - Portrait & Tech Stack */}
-        <div className="lg:col-span-5 flex items-center justify-center relative min-h-[450px] md:min-h-[550px] w-full">
+        {/* Right Column - Portrait & Ambient Glow */}
+        <div className="lg:col-span-5 flex items-end justify-center relative min-h-[480px] md:min-h-[580px] lg:min-h-[680px] w-full self-end">
           {/* Layered glows and concentric rings behind the portrait */}
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none scale-105">
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none scale-125 translate-y-10">
             {/* Glowing cores */}
-            <div className="absolute w-[100%] h-[100%] bg-[#7C3AED]/20 rounded-full blur-[100px] animate-pulse" style={{ animationDuration: "8s" }} />
-            <div className="absolute w-[80%] h-[80%] bg-[#8B5CF6]/15 rounded-full blur-[80px] animate-pulse" style={{ animationDuration: "5s" }} />
+            <div className="absolute w-[120%] h-[120%] bg-[#7C3AED]/25 rounded-full blur-[110px] animate-pulse" style={{ animationDuration: "8s" }} />
+            <div className="absolute w-[95%] h-[95%] bg-[#8B5CF6]/20 rounded-full blur-[90px] animate-pulse" style={{ animationDuration: "5s" }} />
+            <div className="absolute w-[70%] h-[70%] bg-[#A855F7]/15 rounded-full blur-[65px]" />
 
             {/* Glowing ring 1 */}
             <motion.div
-              className="absolute w-[85%] h-[85%] rounded-full border border-[#7C3AED]/20 blur-[2px]"
-              animate={{ scale: [0.96, 1.04, 0.96], opacity: [0.3, 0.5, 0.3] }}
+              className="absolute w-[90%] h-[90%] rounded-full border border-[#7C3AED]/25 blur-[2px]"
+              animate={{ scale: [0.97, 1.03, 0.97], opacity: [0.3, 0.6, 0.3] }}
               transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
             />
 
-            {/* Glowing ring 2 */}
+            {/* Glowing ring 2 - concentric dashed */}
             <motion.div
-              className="absolute w-[70%] h-[70%] rounded-full border border-dashed border-[#8B5CF6]/30"
+              className="absolute w-[75%] h-[75%] rounded-full border border-dashed border-[#8B5CF6]/35"
               animate={{ rotate: 360 }}
-              transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+              transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
             />
 
             {/* Glowing ring 3 */}
             <motion.div
-              className="absolute w-[50%] h-[50%] rounded-full border-2 border-[#A855F7]/10"
-              animate={{ scale: [1.05, 0.95, 1.05], opacity: [0.2, 0.4, 0.2] }}
+              className="absolute w-[60%] h-[60%] rounded-full border-2 border-[#A855F7]/15 blur-[0.5px]"
+              animate={{ scale: [1.03, 0.97, 1.03], opacity: [0.2, 0.5, 0.2] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            />
+
+            {/* Glowing ring 4 */}
+            <motion.div
+              className="absolute w-[45%] h-[45%] rounded-full border border-[#7C3AED]/20"
+              animate={{ rotate: -360 }}
+              transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
             />
           </div>
 
@@ -248,55 +244,24 @@ export function Hero() {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="relative z-10 w-full max-w-[320px] md:max-w-[380px] aspect-[4/5] flex items-center justify-center"
+            className="relative z-10 w-full max-w-[380px] md:max-w-[460px] lg:max-w-[500px] aspect-[4/5] flex items-center justify-center translate-y-6 md:translate-y-8 lg:translate-y-12"
             style={{ x: mousePos.x * 0.4, y: mousePos.y * 0.4 }}
           >
             <motion.img
               src="/images/portrait.png"
               alt="Sudheer Reddy Portrait"
               className="w-full h-auto object-contain drop-shadow-[0_15px_50px_rgba(124,58,237,0.35)]"
-              animate={{ y: [-8, 8, -8] }}
-              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+              animate={{ y: [-3, 3, -3] }}
+              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
             />
-          </motion.div>
 
-          {/* Floating Tech Cards */}
-          <div className="absolute inset-0 z-20 pointer-events-none">
-            {techCards.map((card) => {
-              const Icon = card.icon;
-              return (
-                <motion.div
-                  key={card.name}
-                  className="absolute pointer-events-auto"
-                  style={{
-                    top: card.top,
-                    left: card.left,
-                    right: card.right,
-                    x: mousePos.x * card.pFactor,
-                    y: mousePos.y * card.pFactor
-                  }}
-                  animate={{
-                    y: [-6, 6, -6],
-                    rotate: [card.rot - 2, card.rot + 2, card.rot - 2]
-                  }}
-                  transition={{
-                    duration: card.duration,
-                    delay: card.delay,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }}
-                >
-                  <motion.div
-                    whileHover={{ scale: 1.1, rotate: 0 }}
-                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border bg-black/40 backdrop-blur-md cursor-default transition-all duration-300 text-xs font-semibold shadow-lg ${card.border} ${card.shadow}`}
-                  >
-                    {Icon && <Icon size={13} className={card.text} />}
-                    <span className="text-white/90">{card.name}</span>
-                  </motion.div>
-                </motion.div>
-              );
-            })}
-          </div>
+            {/* Premium waist-down bottom fade overlays */}
+            <div className="absolute -bottom-2 inset-x-0 h-40 pointer-events-none z-20 flex flex-col justify-end">
+              <div className="absolute inset-0 bg-gradient-to-t from-[#09090B] via-[#09090B]/90 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#7C3AED]/15 via-transparent to-transparent blur-[8px]" />
+              <div className="h-4 bg-[#09090B] w-full" />
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>
