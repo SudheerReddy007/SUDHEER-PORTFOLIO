@@ -1,7 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Send, CheckCircle, Mail, ArrowUpRight } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Send, Mail, ArrowUpRight } from "lucide-react";
 import { useState } from "react";
 import { CONTACT_EMAIL } from "@/constants";
 
@@ -21,36 +21,88 @@ const LinkedinIcon = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
+const DEFAULT_MESSAGE = `Hi Sudheer,
+
+I found your portfolio and would like to connect.
+
+I'm reaching out regarding:
+• Job Opportunity
+• Internship
+• Freelance Project
+• Collaboration
+• General Inquiry
+
+Please let me know a convenient time to connect.
+
+Best regards,`;
+
 export function Contact() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState(DEFAULT_MESSAGE);
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [toast, setToast] = useState<{ message: string; type: "success" | "error" } | null>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    // Validation
+    if (!name.trim()) return;
+    if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return;
+    if (!message.trim()) return;
+
     setStatus("submitting");
 
-    const form = e.currentTarget;
-    const data = new FormData(form);
-    
-    // REPLACE WITH YOUR FORMSPREE ENDPOINT URL
-    const endpoint = "https://formspree.io/f/your_form_id_here";
+    const serviceId = "service_8j86glv";
+    const publicKey = "6rCybvFtcbAahUoIo";
+    const templateId = "YOUR_TEMPLATE_ID";
 
     try {
-      const response = await fetch(endpoint, {
+      const response = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
         method: "POST",
-        body: data,
         headers: {
-          Accept: "application/json",
+          "Content-Type": "application/json",
         },
+        body: JSON.stringify({
+          service_id: serviceId,
+          template_id: templateId,
+          user_id: publicKey,
+          template_params: {
+            from_name: name,
+            from_email: email,
+            message: message,
+          },
+        }),
       });
 
       if (response.ok) {
+        setToast({
+          message: "✅ Thank you! Your message has been sent successfully. I'll get back to you soon.",
+          type: "success"
+        });
+        setName("");
+        setEmail("");
+        setMessage(DEFAULT_MESSAGE);
         setStatus("success");
-        form.reset();
+        setTimeout(() => setToast(null), 5000);
       } else {
+        setToast({
+          message: "❌ Failed to send your message. Please try again.",
+          type: "error"
+        });
         setStatus("error");
+        setTimeout(() => setToast(null), 5000);
       }
     } catch (error) {
+      setToast({
+        message: "❌ Failed to send your message. Please try again.",
+        type: "error"
+      });
       setStatus("error");
+      setTimeout(() => setToast(null), 5000);
+    } finally {
+      // Revert status to idle so the user can send again if needed, or if it failed
+      setTimeout(() => setStatus("idle"), 1000);
     }
   };
 
@@ -58,6 +110,30 @@ export function Contact() {
     <section id="contact" className="py-32 relative overflow-hidden bg-[#09090B] text-white">
       {/* Background ambient glow behind contact cards */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#7C3AED]/10 rounded-full blur-[120px] pointer-events-none" />
+
+      {/* Toast Notification */}
+      <AnimatePresence>
+        {toast && (
+          <motion.div
+            initial={{ opacity: 0, y: 50, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 20, scale: 0.95 }}
+            className={`fixed bottom-8 right-8 z-50 px-6 py-4 rounded-2xl border backdrop-blur-md shadow-2xl flex items-center gap-3 text-sm font-semibold max-w-md ${
+              toast.type === "success" 
+                ? "border-emerald-500/20 bg-emerald-950/80 text-emerald-200" 
+                : "border-rose-500/20 bg-rose-950/80 text-rose-200"
+            }`}
+          >
+            <span>{toast.message}</span>
+            <button 
+              onClick={() => setToast(null)} 
+              className="ml-auto text-xs opacity-60 hover:opacity-100 transition-opacity"
+            >
+              Dismiss
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <div className="container mx-auto px-6 md:px-12 max-w-6xl relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
@@ -161,74 +237,56 @@ export function Contact() {
             <div className="glass p-8 rounded-3xl border border-white/10 relative overflow-hidden shadow-2xl">
               <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent pointer-events-none" />
               
-              {status === "success" ? (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="py-12 flex flex-col items-center justify-center text-center relative z-10"
-                >
-                  <div className="w-16 h-16 rounded-full bg-[#8B5CF6]/20 flex items-center justify-center text-[#8B5CF6] mb-4">
-                    <CheckCircle size={36} />
-                  </div>
-                  <h3 className="text-2xl font-bold mb-2">Message Sent!</h3>
-                  <p className="text-muted-foreground max-w-sm">Thank you for reaching out. I'll check my inbox and get back to you as soon as possible.</p>
-                  <button
-                    onClick={() => setStatus("idle")}
-                    className="mt-8 px-6 py-2.5 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 text-sm font-semibold transition-colors"
-                  >
-                    Send another message
-                  </button>
-                </motion.div>
-              ) : (
-                <form onSubmit={handleSubmit} className="flex flex-col gap-6 relative z-10">
-                  <div className="flex flex-col gap-2 text-left">
-                    <label htmlFor="name" className="text-sm font-semibold text-foreground/90">Name</label>
-                    <input
-                      type="text"
-                      name="name"
-                      id="name"
-                      required
-                      className="w-full px-5 py-4 rounded-xl border border-white/10 bg-white/15 focus:bg-white/20 focus:border-[#8B5CF6]/50 focus:outline-none focus:ring-2 focus:ring-[#8B5CF6]/20 transition-all text-sm text-white"
-                      placeholder="Jane Doe"
-                    />
-                  </div>
-                  <div className="flex flex-col gap-2 text-left">
-                    <label htmlFor="email" className="text-sm font-semibold text-foreground/90">Email Address</label>
-                    <input
-                      type="email"
-                      name="email"
-                      id="email"
-                      required
-                      className="w-full px-5 py-4 rounded-xl border border-white/10 bg-white/15 focus:bg-white/20 focus:border-[#8B5CF6]/50 focus:outline-none focus:ring-2 focus:ring-[#8B5CF6]/20 transition-all text-sm text-white"
-                      placeholder="jane@example.com"
-                    />
-                  </div>
-                  <div className="flex flex-col gap-2 text-left">
-                    <label htmlFor="message" className="text-sm font-semibold text-foreground/90">Message</label>
-                    <textarea
-                      name="message"
-                      id="message"
-                      required
-                      rows={5}
-                      className="w-full px-5 py-4 rounded-xl border border-white/10 bg-white/15 focus:bg-white/20 focus:border-[#8B5CF6]/50 focus:outline-none focus:ring-2 focus:ring-[#8B5CF6]/20 transition-all resize-none text-sm text-white"
-                      placeholder="Tell me about your project..."
-                    />
-                  </div>
-                  
-                  {status === "error" && (
-                    <p className="text-red-400 text-sm font-medium text-left">Something went wrong. Please try again or email me directly.</p>
-                  )}
+              <form onSubmit={handleSubmit} className="flex flex-col gap-6 relative z-10">
+                <div className="flex flex-col gap-2 text-left">
+                  <label htmlFor="name" className="text-sm font-semibold text-foreground/90">Name</label>
+                  <input
+                    type="text"
+                    name="name"
+                    id="name"
+                    required
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className="w-full px-5 py-4 rounded-xl border border-white/10 bg-white/15 focus:bg-white/20 focus:border-[#8B5CF6]/50 focus:outline-none focus:ring-2 focus:ring-[#8B5CF6]/20 transition-all text-sm text-white"
+                    placeholder="Jane Doe"
+                  />
+                </div>
+                <div className="flex flex-col gap-2 text-left">
+                  <label htmlFor="email" className="text-sm font-semibold text-foreground/90">Email Address</label>
+                  <input
+                    type="email"
+                    name="email"
+                    id="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-full px-5 py-4 rounded-xl border border-white/10 bg-white/15 focus:bg-white/20 focus:border-[#8B5CF6]/50 focus:outline-none focus:ring-2 focus:ring-[#8B5CF6]/20 transition-all text-sm text-white"
+                    placeholder="jane@example.com"
+                  />
+                </div>
+                <div className="flex flex-col gap-2 text-left">
+                  <label htmlFor="message" className="text-sm font-semibold text-foreground/90">Message</label>
+                  <textarea
+                    name="message"
+                    id="message"
+                    required
+                    rows={10}
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    className="w-full px-5 py-4 rounded-xl border border-white/10 bg-white/15 focus:bg-white/20 focus:border-[#8B5CF6]/50 focus:outline-none focus:ring-2 focus:ring-[#8B5CF6]/20 transition-all resize-none text-sm text-white"
+                    placeholder="Tell me about your project..."
+                  />
+                </div>
 
-                  <button
-                    type="submit"
-                    disabled={status === "submitting"}
-                    className="flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r from-[#7C3AED] to-[#8B5CF6] font-semibold text-base text-white hover:opacity-95 shadow-[0_0_20px_rgba(124,58,237,0.2)] disabled:opacity-50 disabled:cursor-not-allowed w-full transition-all duration-300"
-                  >
-                    {status === "submitting" ? "Sending..." : "Send Message"}
-                    <Send size={18} />
-                  </button>
-                </form>
-              )}
+                <button
+                  type="submit"
+                  disabled={status === "submitting"}
+                  className="flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r from-[#7C3AED] to-[#8B5CF6] font-semibold text-base text-white hover:opacity-95 shadow-[0_0_20px_rgba(124,58,237,0.2)] disabled:opacity-50 disabled:cursor-not-allowed w-full transition-all duration-300"
+                >
+                  {status === "submitting" ? "Sending..." : "Send Message"}
+                  <Send size={18} />
+                </button>
+              </form>
             </div>
           </motion.div>
 
