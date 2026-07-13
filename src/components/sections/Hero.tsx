@@ -89,13 +89,13 @@ export function Hero() {
         ))}
       </div>
 
-      <div className="container mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-8 items-center relative z-10">
+      <div className="container mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-[45fr_55fr] gap-16 lg:gap-8 items-center relative z-10">
         {/* Left Column - Content */}
         <motion.div
           initial={{ opacity: 0, x: -30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="lg:col-span-7 flex flex-col items-start text-left"
+          className="flex flex-col items-start text-left lg:pl-16"
           style={{ x: mousePos.x * 0.2, y: mousePos.y * 0.2 }}
         >
           <motion.span
@@ -133,9 +133,9 @@ export function Hero() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.6 }}
-            className="text-base md:text-lg text-[#B4B4C4] max-w-xl mb-8 leading-relaxed text-balance"
+            className="text-base md:text-lg text-[#B4B4C4] max-w-[650px] mb-5 leading-[1.75]"
           >
-            An enthusiastic and dedicated final-year Electronics and Communication Engineering student with a solid academic background in circuit design, communication systems, and digital electronics.
+            An enthusiastic and dedicated final-year Electronics and Communication Engineering student with a solid academic background in circuit design, communication systems, and digital electronics. Passionate about VLSI, software development, and building innovative digital solutions that combine creativity with engineering excellence.
           </motion.p>
 
           {/* CTA Buttons */}
@@ -202,7 +202,7 @@ export function Hero() {
         </motion.div>
 
         {/* Right Column - Portrait & Ambient Glow */}
-        <div className="lg:col-span-5 flex items-center justify-center relative min-h-[480px] md:min-h-[580px] lg:min-h-[680px] w-full self-center">
+        <div className="flex items-center justify-center relative min-h-[480px] md:min-h-[580px] lg:min-h-[680px] w-full self-center">
           {/* Layered glows and concentric rings behind the portrait */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none scale-125 -translate-y-8">
             {/* Glowing cores */}
