@@ -86,7 +86,9 @@ export function Contact() {
             {/* Email CTA Button */}
             <div className="flex justify-start">
               <a
-                href={`mailto:${CONTACT_EMAIL}`}
+                href="https://mail.google.com/mail/?view=cm&fs=1&to=sudheer.sreeyapureddy@gmail.com&su=Connect%20via%20Portfolio&body=Hi%20Sudheer,%0A%0AI%20visited%20your%20portfolio%20and%20would%20like%20to%20connect.%0A%0ARegards,"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full bg-gradient-to-r from-[#7C3AED] to-[#8B5CF6] text-white text-sm font-semibold shadow-[0_0_20px_rgba(124,58,237,0.3)] hover:shadow-[0_0_30px_rgba(139,92,246,0.5)] hover:scale-105 transition-all duration-300"
               >
                 <Mail size={16} />
