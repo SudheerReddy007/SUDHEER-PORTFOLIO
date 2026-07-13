@@ -199,7 +199,7 @@ export function Contact() {
         )}
       </AnimatePresence>
 
-      <div className="max-w-[1550px] w-[93%] mx-auto px-6 md:px-12 relative z-10">
+      <div className="w-[95vw] max-w-[1800px] mx-auto px-[20px] md:px-[32px] lg:px-[48px] relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
           
           {/* Left Column - Connect Info & Social Cards */}

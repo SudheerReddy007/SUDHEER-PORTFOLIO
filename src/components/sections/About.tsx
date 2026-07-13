@@ -46,7 +46,7 @@ export function About() {
         ))}
       </div>
 
-      <div className="max-w-[1550px] w-[93%] mx-auto px-6 md:px-12 relative z-10">
+      <div className="w-[95vw] max-w-[1800px] mx-auto px-[20px] md:px-[32px] lg:px-[48px] relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 35 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -55,7 +55,7 @@ export function About() {
           className="flex flex-col gap-12 text-center"
         >
           {/* Single Premium Glass Container */}
-          <div className="glass p-10 md:p-16 rounded-[32px] border border-white/10 text-left relative overflow-hidden shadow-2xl space-y-10 w-full max-w-[90%] mx-auto">
+          <div className="glass p-10 md:p-16 rounded-[32px] border border-white/10 text-left relative overflow-hidden shadow-2xl space-y-10 w-full max-w-[95%] mx-auto">
             <div className="absolute inset-0 bg-gradient-to-br from-white/[0.01] to-transparent pointer-events-none" />
             
             {/* Shimmer light reflection overlay */}

@@ -1,35 +1,16 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-
-
-
-
+import { useEffect, useState } from "react";
 
 export function Hero() {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const [particles, setParticles] = useState<Array<{ id: number; x: number; y: number; size: number; duration: number; delay: number }>>([]);
 
-  // Generate background particles on mount
   useEffect(() => {
-    const generatedParticles = Array.from({ length: 30 }, (_, i) => ({
-      id: i,
-      x: Math.random() * 100,
-      y: Math.random() * 100,
-      size: Math.random() * 3 + 1,
-      duration: Math.random() * 15 + 10,
-      delay: Math.random() * 5
-    }));
-    setParticles(generatedParticles);
-
-    // Track mouse coordinates for parallax effects
     const handleMouseMove = (e: MouseEvent) => {
-      const { clientX, clientY } = e;
-      const { innerWidth, innerHeight } = window;
-      const x = (clientX - innerWidth / 2) / 35;
-      const y = (clientY - innerHeight / 2) / 35;
+      const x = (e.clientX / window.innerWidth - 0.5) * 15;
+      const y = (e.clientY / window.innerHeight - 0.5) * 15;
       setMousePos({ x, y });
     };
 
@@ -38,52 +19,51 @@ export function Hero() {
   }, []);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center pt-24 pb-16 overflow-hidden bg-[#09090B] text-white">
-      {/* Background Radial Glows */}
-      <div className="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-primary/10 rounded-full blur-[140px] pointer-events-none opacity-40" />
-      <div className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-[#8B5CF6]/10 rounded-full blur-[120px] pointer-events-none opacity-30" />
-      <div className="absolute top-1/3 right-1/3 w-[500px] h-[500px] bg-[#A855F7]/10 rounded-full blur-[100px] pointer-events-none opacity-30" />
-
-      {/* Floating Star Particles */}
+    <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden bg-[#09090B] text-white pt-28 pb-16">
+      {/* Background ambient lighting and gradients */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {particles.map((p) => (
+        {/* Deep background mesh glow */}
+        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-gradient-radial from-[#7C3AED]/8 to-transparent opacity-60 blur-[100px] pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-gradient-radial from-[#8B5CF6]/5 to-transparent opacity-40 blur-[80px] pointer-events-none" />
+      </div>
+
+      {/* Floating stars/particles background */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-40">
+        {Array.from({ length: 20 }).map((_, i) => (
           <motion.div
-            key={p.id}
-            className="absolute bg-white/40 rounded-full"
+            key={i}
+            className="absolute w-1 h-1 bg-[#8B5CF6]/50 rounded-full"
             style={{
-              left: `${p.x}%`,
-              top: `${p.y}%`,
-              width: p.size,
-              height: p.size,
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
             }}
             animate={{
-              y: ["0px", "-60px", "0px"],
-              opacity: [0.2, 0.7, 0.2],
+              y: ["0px", "-40px", "0px"],
+              opacity: [0.3, 0.9, 0.3],
             }}
             transition={{
-              duration: p.duration,
-              delay: p.delay,
+              duration: 4 + Math.random() * 4,
               repeat: Infinity,
-              ease: "easeInOut"
+              ease: "easeInOut",
             }}
           />
         ))}
       </div>
 
-      <div className="max-w-[1350px] w-[90%] mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-[54fr_46fr] gap-8 items-center relative z-10">
+      <div className="w-[95vw] max-w-[1800px] mx-auto px-[20px] md:px-[32px] lg:px-[48px] grid grid-cols-1 lg:grid-cols-[48fr_52fr] gap-12 items-center relative z-10">
         {/* Left Column - Content */}
         <motion.div
           initial={{ opacity: 0, x: -30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="flex flex-col items-start text-left lg:pl-8"
+          className="flex flex-col items-start text-left lg:pl-4"
           style={{ x: mousePos.x * 0.2, y: mousePos.y * 0.2 }}
         >
           <motion.span
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.5 }}
-            className="text-sm font-semibold uppercase tracking-widest text-[#B4B4C4] mb-3 flex items-center gap-2"
+            className="text-sm font-semibold uppercase tracking-widest text-[#B4B4C4]/70 mb-3 flex items-center gap-2"
           >
             <span className="w-2 h-2 rounded-full bg-[#8B5CF6] animate-pulse" />
             Welcome to my portfolio
@@ -107,7 +87,7 @@ export function Hero() {
             transition={{ delay: 0.4, duration: 0.6 }}
             className="text-2xl font-semibold text-[#8B5CF6] tracking-wide mb-6 uppercase flex items-center gap-2"
           >
-            ECE Student / Circuit Designer
+            PHYSICAL DESIGN ENGINEER
           </motion.h2>
 
           <motion.p
@@ -190,7 +170,7 @@ export function Hero() {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="relative z-10 w-full max-w-[380px] md:max-w-[460px] lg:max-w-[500px] aspect-[4/5] flex items-center justify-center -translate-y-12"
+            className="relative z-10 w-full max-w-[420px] md:max-w-[500px] lg:max-w-[550px] aspect-[4/5] flex items-center justify-center -translate-y-12"
             style={{ x: mousePos.x * 0.4, y: mousePos.y * 0.4 }}
           >
             <motion.img

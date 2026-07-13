@@ -6,7 +6,9 @@ export const CONTACT_EMAIL = "contact@example.com";
 
 export const navLinks: NavLink[] = [
   { name: 'About', href: '#about' },
+  { name: 'Journey', href: '#journey' },
   { name: 'Experience', href: '#experience' },
   { name: 'Skills', href: '#skills' },
   { name: 'Projects', href: '#projects' },
+  { name: 'Contact', href: '#contact' },
 ];

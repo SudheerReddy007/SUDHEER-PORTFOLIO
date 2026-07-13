@@ -53,7 +53,7 @@ export function Projects() {
         <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 150, ease: "linear" }} className="absolute -top-1/2 -right-1/2 w-[1000px] h-[1000px] bg-gradient-radial from-primary/5 to-transparent opacity-50 blur-[100px]" />
       </div>
 
-      <div className="max-w-[1550px] w-[93%] mx-auto px-6 md:px-12 relative z-10">
+      <div className="w-[95vw] max-w-[1800px] mx-auto px-[20px] md:px-[32px] lg:px-[48px] relative z-10">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
           <div>
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">Featured Projects</h2>

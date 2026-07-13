@@ -68,7 +68,7 @@ export function Skills() {
       <div className="absolute top-1/3 right-1/10 w-[550px] h-[550px] bg-[#8B5CF6]/5 rounded-full blur-[145px] pointer-events-none" />
       <div className="absolute bottom-1/3 left-1/10 w-[500px] h-[500px] bg-[#7C3AED]/5 rounded-full blur-[130px] pointer-events-none" />
 
-      <div className="max-w-[1550px] w-[93%] mx-auto px-6 md:px-12 relative z-10">
+      <div className="w-[95vw] max-w-[1800px] mx-auto px-[20px] md:px-[32px] lg:px-[48px] relative z-10">
         
         {/* Header Section */}
         <motion.div
@@ -96,7 +96,7 @@ export function Skills() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-          className="glass p-10 md:p-12 rounded-[32px] border border-white/10 relative overflow-hidden shadow-2xl w-full max-w-[90%] mx-auto"
+          className="glass p-10 md:p-12 rounded-[32px] border border-white/10 relative overflow-hidden shadow-2xl w-full max-w-[95%] mx-auto"
         >
           <div className="absolute inset-0 bg-gradient-to-br from-white/[0.01] to-transparent pointer-events-none rounded-[32px]" />
           

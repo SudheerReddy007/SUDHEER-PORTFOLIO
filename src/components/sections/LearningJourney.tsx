@@ -49,7 +49,7 @@ export function LearningJourney() {
 
   return (
     <section id="journey" className="py-24 relative overflow-hidden bg-[#09090B] text-white border-t border-white/5">
-      <div className="max-w-[1550px] w-[93%] mx-auto px-6 md:px-12 relative z-10">
+      <div className="w-[95vw] max-w-[1800px] mx-auto px-[20px] md:px-[32px] lg:px-[48px] relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 35 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -57,7 +57,7 @@ export function LearningJourney() {
           transition={{ duration: 0.8 }}
           className="flex flex-col gap-12 text-center"
         >
-          <div className="flex flex-col gap-8 w-full max-w-[90%] mx-auto">
+          <div className="flex flex-col gap-8 w-full max-w-[95%] mx-auto">
             <h3 className="text-3xl font-bold tracking-tighter text-left border-b border-white/5 pb-4">
               My Learning Journey
             </h3>

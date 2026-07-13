@@ -26,13 +26,13 @@ export function Experience() {
       <div className="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#7C3AED]/5 rounded-full blur-[140px] pointer-events-none" />
       <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-[#8B5CF6]/5 rounded-full blur-[120px] pointer-events-none" />
 
-      <div className="max-w-[1550px] w-[93%] mx-auto px-6 md:px-12 relative z-10">
+      <div className="w-[95vw] max-w-[1800px] mx-auto px-[20px] md:px-[32px] lg:px-[48px] relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6 }}
-          className="max-w-[90%] mx-auto mb-16 text-center"
+          className="max-w-[95%] mx-auto mb-16 text-center"
         >
           <span className="text-sm font-semibold uppercase tracking-widest text-[#B4B4C4]/60 mb-3 flex items-center justify-center gap-2">
             <span className="w-2 h-2 rounded-full bg-[#8B5CF6] animate-pulse" />
@@ -41,13 +41,13 @@ export function Experience() {
           <h2 className="text-4xl md:text-5xl font-bold tracking-tighter text-center">Experience</h2>
         </motion.div>
 
-        {/* Single Premium Experience Card centered at 90% content width */}
+        {/* Single Premium Experience Card centered at 95% content width */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ type: "spring", stiffness: 80, damping: 15 }}
-          className="glass p-10 md:p-12 rounded-[32px] border border-white/10 relative overflow-hidden shadow-2xl space-y-8 w-full max-w-[90%] mx-auto text-left group"
+          className="glass p-10 md:p-12 rounded-[32px] border border-white/10 relative overflow-hidden shadow-2xl space-y-8 w-full max-w-[95%] mx-auto text-left group"
         >
           <div className="absolute inset-0 bg-gradient-to-br from-white/[0.01] to-transparent pointer-events-none rounded-[32px]" />
           
