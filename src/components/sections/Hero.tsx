@@ -148,9 +148,9 @@ export function Hero() {
         </motion.div>
 
         {/* Right Column - Portrait & Ambient Glow */}
-        <div className="flex items-end justify-center relative min-h-[480px] md:min-h-[580px] lg:min-h-[680px] w-full self-end">
+        <div className="flex items-center justify-center relative min-h-[480px] md:min-h-[580px] lg:min-h-[680px] w-full self-center">
           {/* Layered glows and concentric rings behind the portrait */}
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none scale-125 -translate-y-8">
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none scale-125 -translate-y-12">
             {/* Glowing cores */}
             <div className="absolute w-[120%] h-[120%] bg-[#7C3AED]/35 rounded-full blur-[120px] animate-pulse" style={{ animationDuration: "8s" }} />
             <div className="absolute w-[95%] h-[95%] bg-[#8B5CF6]/28 rounded-full blur-[100px] animate-pulse" style={{ animationDuration: "5s" }} />
@@ -190,7 +190,7 @@ export function Hero() {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="relative z-10 w-full max-w-[380px] md:max-w-[460px] lg:max-w-[500px] aspect-[4/5] flex items-center justify-center -translate-y-8"
+            className="relative z-10 w-full max-w-[380px] md:max-w-[460px] lg:max-w-[500px] aspect-[4/5] flex items-center justify-center -translate-y-12"
             style={{ x: mousePos.x * 0.4, y: mousePos.y * 0.4 }}
           >
             <motion.img
